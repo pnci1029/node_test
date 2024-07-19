@@ -24,3 +24,9 @@ const responseSomething = (req, res) =>{
 }
 app.get('/',responseSomething)
 
+app.get('/test', function (req, res){
+    res.sendFile(__dirname + '/test.html')
+    }
+)
+
+
