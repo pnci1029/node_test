@@ -7,6 +7,12 @@ const app = express();
  * nodemon server.js -> 저장 시 바로 반영
  */
 
+
+/**
+ * yarn add pg -> 포스트그리 라이브러리 설치
+ * yarn add dotenv -> 환경변수 파일 생성
+ */
+
 app.listen(8080, function () {
     console.log('123123')
 })
