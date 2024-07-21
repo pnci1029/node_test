@@ -6,6 +6,7 @@ const { Client } = require("pg");
 require('dotenv').config();
 
 
+
 const client = new Client({
     user: process.env.PG_USER,
     host: process.env.PG_HOST,
