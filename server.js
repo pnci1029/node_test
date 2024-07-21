@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const {response, request} = require("express");
 const app = express();
 const { Client } = require("pg");
