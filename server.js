@@ -60,15 +60,18 @@ app.get('/test', function (req, res){
  * 1. 크롤링을 위한 라이브러리 추가
  * yarn add axios
  *
+ * 2.  HTML 문서에서 데이터를 추출을 위한 라이브러리 추가
+ * yarn add cheerio
  */
 
-const axios = require('axios');
+const axios= require('axios');
+const cheerio = require('cheerio');
 
 
 const getHtml = async () => {
     try {
         // 1
-        const html = await axios.get("https://www.examples.com");
+        const html = await axios.get("https://www.genie.co.kr/chart/top200");
         let ulList = [];
         // 2
         const $ = cheerio.load(html.data);
