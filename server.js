@@ -45,7 +45,12 @@ const box =
 `;
 const responseSomething = (req, res) =>{
     // console.log(req)
-    console.log('request 11')
+    console.clear()
+    console.log('request 11');
+    console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
+    getHtml().then(r =>console.log('crawling success'));
+    console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ')
+
     // res.send(box)
 }
 app.get('/',responseSomething)
@@ -71,11 +76,13 @@ const cheerio = require('cheerio');
 const getHtml = async () => {
     try {
         // 브라우저와 페이지 생성
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
 
         // 페이지로 이동
-        await page.goto('https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&currentJobId=3985083968&position=2&pageNum=0', {
+        // await page.goto("https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&currentJobId=3985096110&position=1&pageNum=0", {
+        await page.goto("https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&position=1&pageNum=0&currentJobId=3985096909", {
+        // await page.goto('https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs', {
             waitUntil: 'networkidle2' // 네트워크가 조용해질 때까지 대기
         });
 
@@ -100,6 +107,7 @@ const getHtml = async () => {
                 job_position: cleanText($(element).find('.base-search-card__title')),
                 company: cleanText($(element).find('.base-search-card__subtitle a')),
                 location: cleanText($(element).find('.job-search-card__location')),
+                jobLevel: cleanText($(element).find('.show-more-less-html__markup.show-more-less-html__markup--clamp-after-5')),
             });
         });
 
@@ -114,7 +122,6 @@ const getHtml = async () => {
     }
 };
 
-getHtml();
 
 
 
