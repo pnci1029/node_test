@@ -102,17 +102,28 @@ const getHtml = async () => {
 
         // 필요한 데이터 추출
         const jobs = [];
+        const jobDetail = [];
         $('section.two-pane-serp-page__results-list .base-search-card').each((i, element) => {
             jobs.push({
                 job_position: cleanText($(element).find('.base-search-card__title')),
                 company: cleanText($(element).find('.base-search-card__subtitle a')),
                 location: cleanText($(element).find('.job-search-card__location')),
-                jobLevel: cleanText($(element).find('.show-more-less-html__markup.show-more-less-html__markup--clamp-after-5')),
             });
         });
 
+        // $('section.two-pane-serp-page__detail-view .decorated-job-posting__details').each((i, element) => {
+        $('section.two-pane-serp-page__detail-view').each((i, element) => {
+            jobDetail.push({
+                description: cleanText($(element).find('show-more-less-html__markup.show-more-less-html__markup--clamp-after-5'))
+            });
+        });
+
+
+
         // 추출된 데이터 출력
         console.log(jobs);
+        console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
+        console.log(jobDetail);
 
         // 브라우저 종료
         await browser.close();
