@@ -34,7 +34,7 @@ const client = new Client({
  */
 
 app.listen(8080, function () {
-    console.log('123123123213')
+    console.log('start')
 })
 
 const box =
@@ -44,8 +44,9 @@ const box =
     </div>
 `;
 const responseSomething = (req, res) =>{
-    console.log(req)
-    res.send(box)
+    // console.log(req)
+    console.log('request 11')
+    // res.send(box)
 }
 app.get('/',responseSomething)
 
@@ -64,7 +65,59 @@ app.get('/test', function (req, res){
  */
 
 const axios= require('axios');
+const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+
+const getHtml = async () => {
+    try {
+        // 브라우저와 페이지 생성
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+
+        // 페이지로 이동
+        await page.goto('https://www.linkedin.com/jobs/search?trk=guest_homepage-basic_guest_nav_menu_jobs&currentJobId=3985083968&position=2&pageNum=0', {
+            waitUntil: 'networkidle2' // 네트워크가 조용해질 때까지 대기
+        });
+
+        // 페이지 내용 추출
+        const content = await page.content();
+
+        // cheerio로 HTML 파싱
+        const $ = cheerio.load(content);
+
+        // // 특정 클래스 이름의 요소 추출
+        // const targetElements = $('section.two-pane-serp-page__results-list').html();
+
+        // cheerio로 텍스트 추출 및 공백 제거
+        const cleanText = (selector) => {
+            return $(selector).text().replace(/\s+/g, ' ').trim();
+        };
+
+        // 필요한 데이터 추출
+        const jobs = [];
+        $('section.two-pane-serp-page__results-list .base-search-card').each((i, element) => {
+            jobs.push({
+                job_position: cleanText($(element).find('.base-search-card__title')),
+                company: cleanText($(element).find('.base-search-card__subtitle a')),
+                location: cleanText($(element).find('.job-search-card__location')),
+            });
+        });
+
+        // 추출된 데이터 출력
+        console.log(jobs);
+
+        // 브라우저 종료
+        await browser.close();
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+getHtml();
+
+
+
 
 
 
