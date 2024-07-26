@@ -15,14 +15,16 @@ const client = new Client({
 });
 
 // db 연결
-client.connect()
-    .then(() => console.log('Connected to the database'))
-    .catch(err => console.error('Connection error', err.stack));
+// client.connect()
+//     .then(() => console.log('Connected to the database'))
+//     .catch(err => console.error('Connection error', err.stack));
 
 
 /**
  * npm install -g nodemon / yarn add global nodemon
  * nodemon server.js -> 저장 시 바로 반영
+ *
+ * dotenv
  */
 
 
@@ -32,11 +34,8 @@ client.connect()
  */
 
 app.listen(8080, function () {
-    console.log('123123')
+    console.log('123123123213')
 })
-
-
-
 
 const box =
     `
@@ -68,27 +67,81 @@ const axios= require('axios');
 const cheerio = require('cheerio');
 
 
-const getHtml = async () => {
-    try {
-        // 1
-        const html = await axios.get("https://www.genie.co.kr/chart/top200");
-        let ulList = [];
-        // 2
-        const $ = cheerio.load(html.data);
-        // 3
-        const bodyList = $("tr.list");
-        bodyList.map((i, element) => {
-            ulList[i] = {
-                rank: i + 1,
-                // 4
-                title: $(element).find("td.info a.title").text().replace(/\s/g, ""),
-                artist: $(element).find("td.info a.artist").text().replace(/\s/g, ""),
-            };
-        });
-        console.log("bodyList : ", ulList);
-    } catch (error) {
-        console.error(error);
-    }
-};
 
-getHtml().then();
+
+// const puppeteer = require('puppeteer');
+// let content = '';
+//
+// (async () => {
+//     // 브라우저 인스턴스를 시작합니다.
+//     const browser = await puppeteer.launch({headless: false}); // headless: false로 설정하여 브라우저를 시각적으로 확인
+//     const page = await browser.newPage();
+//
+//     // 페이지로 이동하기 전에 쿠키를 설정합니다.
+//     await page.setCookie({
+//         name: 'cf_clearance',
+//         value: '.WR212JH80bM1js8kTzhgQonRkJRZtOzC5NtmtgZd54-1721543806-1.0.1.1-MxreS8PNG7hrq6S_MveKMGe_FWVTMurfbS9PVIlqf92SQApHXb1TOx.7lhS2n4VvLKPRcmylDYNk7ZOiSZbU2Q',
+//         domain: '.glassdoor.com',
+//         path: '/',
+//         expires: Date.now() + 60 * 60 * 1000 // 1시간 후 만료
+//     });
+//
+//     // 쿠키가 설정된 상태로 페이지를 요청합니다.
+//     await page.goto("https://www.glassdoor.com", {
+//         waitUntil: 'networkidle2'
+//     });
+//
+//     // 리다이렉션이 발생할 경우 최종 페이지의 콘텐츠를 가져오기 위해 기다립니다.
+//     await page.waitForNavigation({waitUntil: 'networkidle2'});
+//
+//     // 페이지의 최종 콘텐츠를 가져옵니다.
+//      content = await page.content();
+//
+//     console.log(content);
+//     // 브라우저를 종료합니다.
+//     // await browser.close();
+// })();
+
+
+
+
+
+
+
+
+
+
+// const getHtml = async () => {
+    // try {
+    //     // 1
+    //     // const html = await axios.get("https://www.genie.co.kr/chart/top200");
+    //     const html = await axios.get(url, {
+    //         headers: {
+    //             Cookie: `cf_clearance=${cookies}`
+    //             // Cookie: cookies
+    //         }
+    //     })
+    //     let ulList = [];
+    //     // 2
+    //     const $ = cheerio.load(html.data);
+    //     // 3
+    //     // const bodyList = $("div.row d-flex flex-wrap");
+    //     // const bodyList = $("div.row");
+    //     // bodyList.map((i, element) => {
+    //     //     ulList[i] = {
+    //     //         rank: i + 1,
+    //     //         // 4
+    //     //         title: $(element).find("td.info a.title").text().replace(/\s/g, ""),
+    //     //         artist: $(element).find("td.info a.artist").text().replace(/\s/g, ""),
+    //     //     };
+    //     // });
+    //     console.clear()
+    //     console.log("bodyList : ", ulList);
+    //     console.log(2222)
+    // } catch (error) {
+    //     console.clear()
+    //     console.error(error);
+    //     console.log(1111)
+    // }
+// };
+
