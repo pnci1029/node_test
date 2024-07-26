@@ -111,17 +111,32 @@ const getHtml = async () => {
             });
         });
 
+
+        // console.log('ㅡㅡㅡㅡㅡㅡㅡ1ㅡㅡㅡㅡㅡㅡ')
+        // // console.log($('section.two-pane-serp-page__detail-view').html());
+        // console.log($('div.decorated-job-posting__details').html());
+        // console.log('ㅡㅡㅡㅡㅡㅡㅡ1ㅡㅡㅡㅡㅡㅡ')
+
+        const jobDescriptionText = $('div.decorated-job-posting__details')
+            .find('.description__text--rich')
+            .text()
+            .trim(); // 텍스트에서 불필요한 공백 제거
+
+        // 콘솔에 출력
+        console.log('ㅡㅡㅡㅡㅡㅡㅡ1ㅡㅡㅡㅡㅡㅡ');
+        console.log(jobDescriptionText); // 추출된 텍스트 출력
+        console.log('ㅡㅡㅡㅡㅡㅡㅡ1ㅡㅡㅡㅡㅡㅡ');
         // $('section.two-pane-serp-page__detail-view .decorated-job-posting__details').each((i, element) => {
-        $('section.two-pane-serp-page__detail-view').each((i, element) => {
-            jobDetail.push({
-                description: cleanText($(element).find('show-more-less-html__markup.show-more-less-html__markup--clamp-after-5'))
-            });
-        });
+        // $('section.two-pane-serp-page__detail-view').each((i, element) => {
+        //     jobDetail.push({
+        //         description: cleanText($(element).find('show-more-less-html__markup.show-more-less-html__markup--clamp-after-5'))
+        //     });
+        // });
 
 
 
         // 추출된 데이터 출력
-        console.log(jobs);
+        // console.log(jobs);
         console.log('ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ');
         console.log(jobDetail);
 
